@@ -1,0 +1,15 @@
+D:\PTPMQL\TestRunFile\Student\bin\Debug\net10.0\Student.exe
+D:\PTPMQL\TestRunFile\Student\bin\Debug\net10.0\Student.deps.json
+D:\PTPMQL\TestRunFile\Student\bin\Debug\net10.0\Student.runtimeconfig.json
+D:\PTPMQL\TestRunFile\Student\bin\Debug\net10.0\Student.dll
+D:\PTPMQL\TestRunFile\Student\bin\Debug\net10.0\Student.pdb
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\Student.GeneratedMSBuildEditorConfig.editorconfig
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\Student.AssemblyInfoInputs.cache
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\Student.AssemblyInfo.cs
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\Student.csproj.CoreCompileInputs.cache
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\Student.sourcelink.json
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\Student.dll
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\refint\Student.dll
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\Student.pdb
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\Student.genruntimeconfig.cache
+D:\PTPMQL\TestRunFile\Student\obj\Debug\net10.0\ref\Student.dll

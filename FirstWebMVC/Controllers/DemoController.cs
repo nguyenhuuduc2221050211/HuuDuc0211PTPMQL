@@ -8,11 +8,13 @@ public class DemoController : Controller
 {
     public IActionResult Index()
     {
+        ViewBag.Fullname = "welcome to mvc " ;
         return View();
     }
 
-    public IActionResult Privacy()
+    public IActionResult Demo()
     {
+        
         return View();
     }
 

@@ -1,0 +1,15 @@
+D:\PTPMQL\TestRunFile\bin\Debug\net10.0\TestRunFile.exe
+D:\PTPMQL\TestRunFile\bin\Debug\net10.0\TestRunFile.deps.json
+D:\PTPMQL\TestRunFile\bin\Debug\net10.0\TestRunFile.runtimeconfig.json
+D:\PTPMQL\TestRunFile\bin\Debug\net10.0\TestRunFile.dll
+D:\PTPMQL\TestRunFile\bin\Debug\net10.0\TestRunFile.pdb
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\TestRunFile.GeneratedMSBuildEditorConfig.editorconfig
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\TestRunFile.AssemblyInfoInputs.cache
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\TestRunFile.AssemblyInfo.cs
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\TestRunFile.csproj.CoreCompileInputs.cache
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\TestRunFile.sourcelink.json
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\TestRunFile.dll
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\refint\TestRunFile.dll
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\TestRunFile.pdb
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\TestRunFile.genruntimeconfig.cache
+D:\PTPMQL\TestRunFile\obj\Debug\net10.0\ref\TestRunFile.dll
