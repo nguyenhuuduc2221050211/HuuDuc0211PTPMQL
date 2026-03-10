@@ -1,0 +1,17 @@
+@model FirstWebMVC.Models.Student
+
+<h2>Xoá sinh viên</h2>
+
+<form method="post">
+
+    <p>Bạn có chắc muốn xoá sinh viên này?</p>
+
+    <p>Mã SV: @Model.Studentcode</p>
+    <p>Họ tên: @Model.Fullname</p>
+
+    <input type="hidden" asp-for="Studentcode" />
+
+    <button type="submit">Xoá</button>
+    <a href="/Student">Huỷ</a>
+
+</form>
