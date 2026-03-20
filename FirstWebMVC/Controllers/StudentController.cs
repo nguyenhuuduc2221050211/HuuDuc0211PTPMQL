@@ -22,12 +22,17 @@ namespace FirstWebMVC.Controllers
         }
        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Student student)
+        {
+            if (ModelState.IsValid)
         {
             _context.Students.Add(student);
             _context.SaveChanges();
 
              return RedirectToAction("Index");
+        }
+        return View(student);
         }
         public IActionResult Edit(string id)
         {

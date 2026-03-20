@@ -2,16 +2,25 @@
 
 <h2>Chỉnh sửa sinh viên</h2>
 
-<form method="post">
+<form asp-action="Edit" method="post">
 
+<div>
     <label>Mã sinh viên</label>
     <input asp-for="Studentcode" readonly />
-    <br />
+    <span asp-validation-for="Studentcode" style="color:red"></span>
+</div>
 
+<div>
     <label>Họ tên</label>
     <input asp-for="Fullname" />
-    <br />
+    <span asp-validation-for="Fullname" style="color:red"></span>
+</div>
 
-    <button type="submit">Cập nhật</button>
+<button type="submit">Cập nhật</button>
+<a href="/Student">Quay lại</a>
 
 </form>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

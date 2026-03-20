@@ -4,15 +4,24 @@
 
 <form method="post">
 
+<div>
     <label>Mã sinh viên</label>
     <input asp-for="Studentcode" />
-    <br />
+    <span asp-validation-for="Studentcode" style="color:red"></span>
+</div>
 
+<div>
     <label>Họ tên</label>
     <input asp-for="Fullname" />
-    <br />
+    <span asp-validation-for="Studentcode" style="color:red"></span>
+</div>
 
 
     <button type="submit">Lưu</button>
+    <a href="/Student">Quay lại</a>
 
 </form>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}    
