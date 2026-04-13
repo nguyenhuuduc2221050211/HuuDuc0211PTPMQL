@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FirstWebMVC.Data;
 using FirstWebMVC.Models;
+using FirstWebMVC.ViewModels;
 
 namespace FirstWebMVC.Controllers
 {
@@ -13,8 +14,17 @@ namespace FirstWebMVC.Controllers
         }
         public IActionResult Index()
         {
-            var students = _context.Students.ToList();
-            return View(students);
+            var data = from s in _context.Students
+               join f in _context.Faculties
+               on s.FacultyID equals f.FacultyID
+               select new StudentFacultyVM
+               {
+                   Studentcode = s.Studentcode,
+                   Fullname = s.Fullname,
+                   FacultyName = f.FacultyName
+               };
+
+     return View(data.ToList());
         }
         public IActionResult Create()
         {

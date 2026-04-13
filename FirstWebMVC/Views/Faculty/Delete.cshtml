@@ -1,0 +1,12 @@
+@model FirstWebMVC.Models.Faculty
+
+<h2>Xóa khoa</h2>
+
+<h3>Bạn có chắc muốn xóa?</h3>
+
+<p>@Model.FacultyName</p>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="FacultyID"/>
+    <button type="submit">Xóa</button>
+</form>

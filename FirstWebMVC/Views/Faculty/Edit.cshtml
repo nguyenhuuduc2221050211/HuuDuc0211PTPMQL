@@ -1,0 +1,21 @@
+@model FirstWebMVC.Models.Faculty
+
+<h2>Sửa khoa</h2>
+
+<form asp-action="Edit">
+
+    <input type="hidden" asp-for="FacultyID"/>
+
+    <div>
+        <label>Tên khoa</label>
+        <input asp-for="FacultyName"/>
+        <span asp-validation-for="FacultyName"></span>
+    </div>
+
+    <button type="submit">Lưu</button>
+
+</form>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
