@@ -1,0 +1,17 @@
+@model FirstWebMVC.Models.Customer
+
+<h2>Thêm khách hàng</h2>
+
+<form asp-action="Create">
+
+<label>Tên</label>
+<input asp-for="CustomerName" />
+<br />
+
+<label>Email</label>
+<input asp-for="Email" />
+<br />
+
+<button type="submit">Lưu</button>
+
+</form>

@@ -1,0 +1,40 @@
+@model FirstWebMVC.Models.OrderDetail
+
+<h2>Thêm sản phẩm vào đơn hàng</h2>
+
+<form asp-action="Create">
+
+<label>Đơn hàng</label>
+
+<select asp-for="OrderID">
+
+@foreach(var o in ViewBag.Orders)
+{
+<option value="@o.OrderID">@o.OrderID</option>
+}
+
+</select>
+
+<br />
+
+<label>Sản phẩm</label>
+
+<select asp-for="ProductID">
+
+@foreach(var p in ViewBag.Products)
+{
+<option value="@p.ProductID">@p.ProductName</option>
+}
+
+</select>
+
+<br />
+
+<label>Số lượng</label>
+<input asp-for="Quantity"/>
+
+<br />
+
+<button type="submit">Lưu</button>
+
+</form>

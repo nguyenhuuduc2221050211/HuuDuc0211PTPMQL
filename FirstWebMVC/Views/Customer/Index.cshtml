@@ -1,0 +1,24 @@
+@model IEnumerable<FirstWebMVC.Models.Customer>
+
+<h2>Danh sách khách hàng</h2>
+
+<a asp-action="Create">Thêm khách hàng</a>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Tên</th>
+    <th>Email</th>
+</tr>
+
+@foreach(var item in Model)
+{
+<tr>
+    <td>@item.CustomerID</td>
+    <td>@item.CustomerName</td>
+    <td>@item.Email</td>
+</tr>
+}
+
+</table>
