@@ -2,26 +2,18 @@
 
 <h2>Thêm sinh viên</h2>
 
-<form method="post">
+<form asp-action="Create">
+    
+    <div>
+        <label>Mã sinh viên</label>
+        <input asp-for="StudentCode" />
+    </div>
 
-<div>
-    <label>Mã sinh viên</label>
-    <input asp-for="Studentcode" />
-    <span asp-validation-for="Studentcode" style="color:red"></span>
-</div>
-
-<div>
-    <label>Họ tên</label>
-    <input asp-for="Fullname" />
-    <span asp-validation-for="Studentcode" style="color:red"></span>
-</div>
-
+    <div>
+        <label>Họ tên</label>
+        <input asp-for="Fullname" />
+    </div>
 
     <button type="submit">Lưu</button>
-    <a href="/Student">Quay lại</a>
 
 </form>
-
-@section Scripts{
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}    

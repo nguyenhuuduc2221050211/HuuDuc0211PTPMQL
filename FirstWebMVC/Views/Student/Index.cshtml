@@ -1,7 +1,7 @@
 @model IEnumerable<FirstWebMVC.ViewModels.StudentFacultyVM>
 
 <h2>Danh sách sinh viên</h2>
-
+<a asp-action="ImportExcel">Import Excel</a>
 <table border="1">
 <tr>
     <th>Mã SV</th>
@@ -12,7 +12,7 @@
 @foreach(var item in Model)
 {
 <tr>
-    <td>@item.Studentcode</td>
+    <td>@item.StudentCode</td>
     <td>@item.Fullname</td>
     <td>@item.FacultyName</td>
 </tr>

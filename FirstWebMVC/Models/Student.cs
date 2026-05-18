@@ -8,7 +8,7 @@ namespace FirstWebMVC.Models
         [Key]
         [Required(ErrorMessage = "Mã sinh viên không được để trống")]
         [StringLength(10, ErrorMessage = "Mã sinh viên tối đa 10 ký tự")]
-        public string Studentcode {get; set;}
+        public string StudentCode {get; set;}
         
         [Required(ErrorMessage = "Họ tên không được để trống")]
         [StringLength(50, ErrorMessage = "Họ tên tối đa 50 ký tự")]

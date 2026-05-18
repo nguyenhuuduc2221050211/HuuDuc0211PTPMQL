@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Models;
+using FirstWebMVC.Models.Entities;
 
 namespace FirstWebMVC.Data
 {
@@ -21,5 +22,12 @@ namespace FirstWebMVC.Data
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Device> Devices { get; set; }
+        public DbSet<Import> Imports { get; set; }
+        public DbSet<ImportDetail> ImportDetails { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }
