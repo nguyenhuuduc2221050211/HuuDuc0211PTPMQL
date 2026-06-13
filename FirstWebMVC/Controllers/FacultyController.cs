@@ -28,31 +28,27 @@ namespace FirstWebMVC.Controllers
         }
 
         // POST Create
-        [HttpPost]
-        public IActionResult Create(Faculty faculty)
+       [HttpPost]
+public IActionResult Create(Faculty faculty)
+{
+    if (!ModelState.IsValid)
+    {
+        foreach (var value in ModelState.Values)
         {
-            if(ModelState.IsValid)
+            foreach (var error in value.Errors)
             {
-                _context.Faculties.Add(faculty);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                Console.WriteLine(error.ErrorMessage);
             }
-
-            return View(faculty);
         }
 
-        // GET Edit
-        public IActionResult Edit(int id)
-        {
-            var faculty = _context.Faculties.Find(id);
-            if(faculty == null)
-            {
-                return NotFound();
-            }
+        return View(faculty);
+    }
 
-            return View(faculty);
-        }
+    _context.Faculties.Add(faculty);
+    _context.SaveChanges();
 
+    return RedirectToAction("Index");
+}
         // POST Edit
         [HttpPost]
         public IActionResult Edit(Faculty faculty)

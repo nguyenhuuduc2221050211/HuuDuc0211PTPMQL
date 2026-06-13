@@ -7,6 +7,8 @@ namespace FirstWebMVC.Models
         [Key]
         public int FacultyID { get; set; }
 
-        public string FacultyName { get; set; }
+        public string? FacultyName { get; set; }
+
+        public List<Student>? Students { get; set; }
     }
 }

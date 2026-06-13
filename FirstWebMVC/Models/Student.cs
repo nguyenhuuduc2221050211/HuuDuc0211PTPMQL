@@ -17,6 +17,6 @@ namespace FirstWebMVC.Models
         public int FacultyID { get; set; }
 
         [ForeignKey("FacultyID")]
-        public Faculty Faculty { get; set; }
+        public Faculty? Faculty { get; set; }
     }
 }

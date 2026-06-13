@@ -2,18 +2,37 @@
 
 <h2>Thêm sinh viên</h2>
 
-<form asp-action="Create">
-    
+<form asp-action="Create" method="post">
+
     <div>
-        <label>Mã sinh viên</label>
+        <label>Mã SV</label>
         <input asp-for="StudentCode" />
+        <span asp-validation-for="StudentCode"></span>
     </div>
 
     <div>
         <label>Họ tên</label>
         <input asp-for="Fullname" />
+        <span asp-validation-for="Fullname"></span>
     </div>
 
-    <button type="submit">Lưu</button>
+    <div>
+        <label>Khoa</label>
+
+        <select asp-for="FacultyID">
+            <option value="0">-- Chọn khoa --</option>
+
+            @foreach(var item in ViewBag.Faculties)
+            {
+                <option value="@item.FacultyID">
+                    @item.FacultyName
+                </option>
+            }
+        </select>
+    </div>
+
+    <button type="submit">
+        Lưu
+    </button>
 
 </form>

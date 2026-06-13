@@ -15,8 +15,8 @@ namespace FirstWebMVC.Controllers
             _context = context;
         }
         public IActionResult Index()
-        {
-            var data = from s in _context.Students
+{
+    var data = from s in _context.Students
                join f in _context.Faculties
                on s.FacultyID equals f.FacultyID
                select new StudentFacultyVM
@@ -26,97 +26,144 @@ namespace FirstWebMVC.Controllers
                    FacultyName = f.FacultyName
                };
 
-     return View(data.ToList());
-        }
-        public IActionResult Create()
-        {
-            return View();
-        }
+    return View(data.ToList());
+}
+     public IActionResult Create()
+    {
+        ViewBag.Faculties = _context.Faculties.ToList();
+
+        return View();
+    }
        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Student student)
-        {
-            if (ModelState.IsValid)
-        {
-            _context.Students.Add(student);
-            _context.SaveChanges();
+    [HttpPost]
+public IActionResult Create(Student student)
+{
+    Console.WriteLine("StudentCode: " + student.StudentCode);
+    Console.WriteLine("Fullname: " + student.Fullname);
+    Console.WriteLine("FacultyID: " + student.FacultyID);
 
-             return RedirectToAction("Index");
+    if (!ModelState.IsValid)
+    {
+        foreach (var item in ModelState.Values)
+        {
+            foreach (var error in item.Errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
         }
+
+        ViewBag.Faculties = _context.Faculties.ToList();
         return View(student);
-        }
+    }
+
+    _context.Students.Add(student);
+    _context.SaveChanges();
+
+    Console.WriteLine("Lưu thành công");
+
+    return RedirectToAction("Index");
+}
+       
         public IActionResult Edit(string id)
-        {
-            var student = _context.Students.Find(id);
-            return View(student);
-        }
+{
+    var student = _context.Students.Find(id);
+
+    if (student == null)
+    {
+        return NotFound();
+    }
+
+    ViewBag.Faculties = _context.Faculties.ToList();
+
+    return View(student);
+}
         [HttpPost]
-        public IActionResult Edit(Student student)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Students.Update(student);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
+public IActionResult Edit(Student student)
+{
+    if (ModelState.IsValid)
+    {
+        _context.Students.Update(student);
+        _context.SaveChanges();
 
-            return View(student);
-        }
-        public IActionResult Delete(string id)
-        {
-            var student = _context.Students.Find(id);
-            return View(student);
-        }
-        [HttpPost]
-        public IActionResult Delete(Student student)
-        {
-            var st = _context.Students.Find(student.StudentCode);
+        return RedirectToAction("Index");
+    }
 
-            if (st != null)
-            {
-                _context.Students.Remove(st);
-                _context.SaveChanges();
-            }
+    ViewBag.Faculties = _context.Faculties.ToList();
 
-            return RedirectToAction("Index");
-        }
+    return View(student);
+}
 
+public IActionResult Delete(string id)
+{
+    var student = _context.Students.Find(id);
+
+    if (student == null)
+    {
+        return NotFound();
+    }
+
+    return View(student);
+}
+[HttpPost, ActionName("Delete")]
+public IActionResult DeleteConfirmed(string id)
+{
+    var student = _context.Students.Find(id);
+
+    if (student != null)
+    {
+        _context.Students.Remove(student);
+        _context.SaveChanges();
+    }
+
+    return RedirectToAction("Index");
+}
         public IActionResult ImportExcel()
         {
             return View();
         }
-        [HttpPost]
-public async Task<IActionResult> ImportExcel(IFormFile file)
-{
-    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        
 
+    [HttpPost]
+public IActionResult ImportExcel(IFormFile file)
+{
     if (file == null || file.Length == 0)
-        return Content("File không hợp lệ");
+    {
+        ViewBag.Message = "Vui lòng chọn file Excel";
+        return View();
+    }
+
+    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
     using (var stream = new MemoryStream())
     {
-        await file.CopyToAsync(stream);
+        file.CopyTo(stream);
 
         using (var package = new ExcelPackage(stream))
         {
-            var worksheet = package.Workbook.Worksheets.FirstOrDefault();
-
-            if (worksheet == null || worksheet.Dimension == null)
-                return Content("File Excel rỗng");
+            ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
 
             int rowCount = worksheet.Dimension.Rows;
 
             for (int row = 2; row <= rowCount; row++)
             {
-                var student = new Student
-                {
-                    StudentCode = worksheet.Cells[row, 1].Text,
-                    Fullname = worksheet.Cells[row, 2].Text
-                };
+                string code = worksheet.Cells[row, 1].Text;
+                string name = worksheet.Cells[row, 2].Text;
+                int facultyId = int.Parse(worksheet.Cells[row, 3].Text);
 
-                if (!_context.Students.Any(s => s.StudentCode == student.StudentCode))
+
+                // Kiểm tra mã sinh viên đã tồn tại chưa
+                bool exists = _context.Students
+                    .Any(s => s.StudentCode == code);
+
+                if (!exists)
                 {
+                    Student student = new Student()
+                    {
+                        StudentCode = code,
+                        Fullname = name,
+                        FacultyID = facultyId
+                    };
+
                     _context.Students.Add(student);
                 }
             }
@@ -125,7 +172,8 @@ public async Task<IActionResult> ImportExcel(IFormFile file)
         }
     }
 
+    // Sau khi import quay về danh sách sinh viên
     return RedirectToAction("Index");
-}
+} 
     }
 }

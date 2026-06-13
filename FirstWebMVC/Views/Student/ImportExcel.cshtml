@@ -1,13 +1,27 @@
-@{
-    ViewData["Title"] = "Import Excel";
+<h2>Nhập danh sách sinh viên từ Excel</h2>
+
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
 }
 
-<h2>Import Student từ Excel</h2>
-
-<form asp-action="ImportExcel" method="post" enctype="multipart/form-data">
+<form asp-action="ImportExcel" 
+      method="post" 
+      enctype="multipart/form-data">
 
     <input type="file" name="file" />
 
-    <button type="submit">Upload</button>
+    <br />
+    <br />
+
+    <button type="submit">
+        Upload
+    </button>
 
 </form>
+
+<br />
+
+<a asp-action="Index">
+    Quay lại danh sách sinh viên
+</a>

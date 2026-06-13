@@ -5,22 +5,28 @@
 <form asp-action="Edit" method="post">
 
 <div>
-    <label>Mã sinh viên</label>
-    <input asp-for="StudentCode" readonly />
-    <span asp-validation-for="StudentCode" style="color:red"></span>
-</div>
+        <label>Mã SV</label>
+        <input asp-for="StudentCode" readonly />
+    </div>
 
-<div>
-    <label>Họ tên</label>
-    <input asp-for="Fullname" />
-    <span asp-validation-for="Fullname" style="color:red"></span>
-</div>
+    <div>
+        <label>Họ tên</label>
+        <input asp-for="Fullname" />
+    </div>
+
+    <div>
+        <label>Khoa</label>
+        <select asp-for="FacultyID">
+            @foreach (var item in ViewBag.Faculties)
+            {
+                <option value="@item.FacultyID">
+                    @item.FacultyName
+                </option>
+            }
+        </select>
+    </div>
 
 <button type="submit">Cập nhật</button>
 <a href="/Student">Quay lại</a>
 
 </form>
-
-@section Scripts{
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
