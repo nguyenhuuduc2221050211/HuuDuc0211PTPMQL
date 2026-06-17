@@ -1,0 +1,49 @@
+@model FirstWebMVC.Models.ExportDetail
+
+<form asp-action="Create">
+
+    <div>
+        <label>Phiếu xuất</label>
+
+        <select asp-for="ExportReceiptID">
+
+            @foreach(var item in ViewBag.ExportReceipts)
+            {
+                <option value="@item.ExportReceiptID">
+                    @item.ExportReceiptID
+                </option>
+            }
+
+        </select>
+    </div>
+
+    <div>
+        <label>Thiết bị</label>
+
+        <select asp-for="DeviceID">
+
+            @foreach(var item in ViewBag.Devices)
+            {
+                <option value="@item.DeviceID">
+                    @item.DeviceName
+                </option>
+            }
+
+        </select>
+    </div>
+
+    <div>
+        <label>Số lượng xuất</label>
+        <input asp-for="Quantity" />
+    </div>
+
+    <div>
+        <label>Đơn giá xuất</label>
+        <input asp-for="ExportPrice" />
+    </div>
+
+    <button type="submit">
+        Xuất kho
+    </button>
+
+</form>

@@ -1,13 +1,38 @@
-public class ImportDetail
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FirstWebMVC.Models
 {
-    public int ImportDetailId { get; set; }
+    public class ImportDetail
+    {
+        public int ImportDetailID { get; set; }
 
-    public int ImportId { get; set; }
-    public Import Import { get; set; }
 
-    public int DeviceId { get; set; }
-    public Device Device { get; set; }
+        // Khóa ngoại phiếu nhập
+        public int ImportReceiptID { get; set; }
 
-    public int Quantity { get; set; }
-    public decimal Price { get; set; }
+        [ForeignKey("ImportReceiptID")]
+        public ImportReceipt? ImportReceipt { get; set; }
+
+
+        // Khóa ngoại thiết bị
+        public int DeviceID { get; set; }
+
+        [ForeignKey("DeviceID")]
+        public Device? Device { get; set; }
+
+
+        public int Quantity { get; set; }
+
+
+        public decimal ImportPrice { get; set; }
+
+
+        public decimal TotalMoney
+        {
+            get
+            {
+                return Quantity * ImportPrice;
+            }
+        }
+    }
 }

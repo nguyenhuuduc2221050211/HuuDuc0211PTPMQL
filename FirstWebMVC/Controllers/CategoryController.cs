@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Data;
+using FirstWebMVC.Models;
 
 namespace FirstWebMVC.Controllers
 {
@@ -18,12 +19,21 @@ namespace FirstWebMVC.Controllers
             _context = context;
         }
 
-        // GET: Category Loại Thiết Bị
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Categories.ToListAsync());
-        }
+        // GET: Category
+       public IActionResult Index(string keyword)
+{
+    var data = _context.Categories.AsQueryable();
 
+
+    if (!string.IsNullOrEmpty(keyword))
+    {
+        data = data.Where(x =>
+            x.CategoryName.Contains(keyword));
+    }
+
+
+    return View(data.ToList());
+}
         // GET: Category/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -33,7 +43,7 @@ namespace FirstWebMVC.Controllers
             }
 
             var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+                .FirstOrDefaultAsync(m => m.CategoryID == id);
             if (category == null)
             {
                 return NotFound();
@@ -53,7 +63,7 @@ namespace FirstWebMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName")] Category category)
+        public async Task<IActionResult> Create([Bind("CategoryID,CategoryName")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -85,9 +95,9 @@ namespace FirstWebMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryID,CategoryName")] Category category)
         {
-            if (id != category.CategoryId)
+            if (id != category.CategoryID)
             {
                 return NotFound();
             }
@@ -101,7 +111,7 @@ namespace FirstWebMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.CategoryId))
+                    if (!CategoryExists(category.CategoryID))
                     {
                         return NotFound();
                     }
@@ -124,7 +134,7 @@ namespace FirstWebMVC.Controllers
             }
 
             var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+                .FirstOrDefaultAsync(m => m.CategoryID == id);
             if (category == null)
             {
                 return NotFound();
@@ -150,7 +160,7 @@ namespace FirstWebMVC.Controllers
 
         private bool CategoryExists(int id)
         {
-            return _context.Categories.Any(e => e.CategoryId == id);
+            return _context.Categories.Any(e => e.CategoryID == id);
         }
     }
 }

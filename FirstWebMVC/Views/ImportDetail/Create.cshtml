@@ -1,0 +1,49 @@
+@model FirstWebMVC.Models.ImportDetail
+
+<h2>Nhập kho</h2>
+
+<form asp-action="Create">
+
+    <div>
+        <label>Phiếu nhập</label>
+
+        <select asp-for="ImportReceiptID">
+            @foreach(var item in ViewBag.ImportReceipts)
+            {
+                <option value="@item.ImportReceiptID">
+                    @item.ImportReceiptID
+                </option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Thiết bị</label>
+
+        <select asp-for="DeviceID">
+
+            @foreach(var item in ViewBag.Devices)
+            {
+                <option value="@item.DeviceID">
+                    @item.DeviceName
+                </option>
+            }
+
+        </select>
+    </div>
+
+    <div>
+        <label>Số lượng</label>
+        <input asp-for="Quantity" />
+    </div>
+
+    <div>
+        <label>Đơn giá nhập</label>
+        <input asp-for="ImportPrice" />
+    </div>
+
+    <button type="submit">
+        Lưu
+    </button>
+
+</form>

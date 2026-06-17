@@ -1,7 +1,7 @@
-@model Supplier
+@model FirstWebMVC.Models.Supplier
 
 @{
-    ViewData["Nhà Cung Cấp"] = "Create";
+    ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
@@ -16,6 +16,16 @@
                 <label asp-for="SupplierName" class="control-label"></label>
                 <input asp-for="SupplierName" class="form-control" />
                 <span asp-validation-for="SupplierName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

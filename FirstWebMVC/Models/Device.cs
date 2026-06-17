@@ -1,11 +1,40 @@
-public class Device
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FirstWebMVC.Models
 {
-    public int DeviceId { get; set; }
-    public string DeviceName { get; set; }
+    public class Device
+    {
+        [Key]
+        public int DeviceID { get; set; }
 
-    public int CategoryId { get; set; }
-    public Category Category { get; set; }
 
-    public int SupplierId { get; set; }
-    public Supplier Supplier { get; set; }
+        [Required]
+        public string DeviceName { get; set; }
+
+
+        public decimal Price { get; set; }
+
+
+        public int Quantity { get; set; }
+
+
+        public string Description { get; set; }
+
+
+        // Khóa ngoại Category
+        public int CategoryID { get; set; }
+
+
+        [ForeignKey("CategoryID")]
+        public Category? Category { get; set; }
+
+
+        // Khóa ngoại Supplier
+        public int SupplierID { get; set; }
+
+
+        [ForeignKey("SupplierID")]
+        public Supplier? Supplier { get; set; }
+    }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Data;
+using FirstWebMVC.Models;
 
 namespace FirstWebMVC.Controllers
 {
@@ -18,12 +19,24 @@ namespace FirstWebMVC.Controllers
             _context = context;
         }
 
-        // GET: Device Thiết Bị
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Devices.Include(d => d.Category).Include(d => d.Supplier);
-            return View(await applicationDbContext.ToListAsync());
-        }
+        // GET: Device
+        public IActionResult Index(string keyword)
+{
+    var data = _context.Devices
+        .Include(x => x.Category)
+        .Include(x => x.Supplier)
+        .AsQueryable();
+
+
+    if (!string.IsNullOrEmpty(keyword))
+    {
+        data = data.Where(x =>
+            x.DeviceName.Contains(keyword));
+    }
+
+
+    return View(data.ToList());
+}
 
         // GET: Device/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -36,7 +49,7 @@ namespace FirstWebMVC.Controllers
             var device = await _context.Devices
                 .Include(d => d.Category)
                 .Include(d => d.Supplier)
-                .FirstOrDefaultAsync(m => m.DeviceId == id);
+                .FirstOrDefaultAsync(m => m.DeviceID == id);
             if (device == null)
             {
                 return NotFound();
@@ -48,8 +61,8 @@ namespace FirstWebMVC.Controllers
         // GET: Device/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId");
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName");
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierName");
             return View();
         }
 
@@ -58,7 +71,7 @@ namespace FirstWebMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DeviceId,DeviceName,CategoryId,SupplierId")] Device device)
+        public async Task<IActionResult> Create([Bind("DeviceID,DeviceName,Price,Quantity,Description,CategoryID,SupplierID")] Device device)
         {
             if (ModelState.IsValid)
             {
@@ -66,8 +79,8 @@ namespace FirstWebMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", device.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", device.SupplierId);
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", device.CategoryID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierName", device.SupplierID);
             return View(device);
         }
 
@@ -84,8 +97,8 @@ namespace FirstWebMVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", device.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", device.SupplierId);
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", device.CategoryID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierName", device.SupplierID);
             return View(device);
         }
 
@@ -94,9 +107,9 @@ namespace FirstWebMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DeviceId,DeviceName,CategoryId,SupplierId")] Device device)
+        public async Task<IActionResult> Edit(int id, [Bind("DeviceID,DeviceName,Price,Quantity,Description,CategoryID,SupplierID")] Device device)
         {
-            if (id != device.DeviceId)
+            if (id != device.DeviceID)
             {
                 return NotFound();
             }
@@ -110,7 +123,7 @@ namespace FirstWebMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DeviceExists(device.DeviceId))
+                    if (!DeviceExists(device.DeviceID))
                     {
                         return NotFound();
                     }
@@ -121,8 +134,8 @@ namespace FirstWebMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", device.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "SupplierId", device.SupplierId);
+            ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "CategoryName", device.CategoryID);
+            ViewData["SupplierID"] = new SelectList(_context.Suppliers, "SupplierID", "SupplierName", device.SupplierID);
             return View(device);
         }
 
@@ -137,7 +150,7 @@ namespace FirstWebMVC.Controllers
             var device = await _context.Devices
                 .Include(d => d.Category)
                 .Include(d => d.Supplier)
-                .FirstOrDefaultAsync(m => m.DeviceId == id);
+                .FirstOrDefaultAsync(m => m.DeviceID == id);
             if (device == null)
             {
                 return NotFound();
@@ -163,7 +176,7 @@ namespace FirstWebMVC.Controllers
 
         private bool DeviceExists(int id)
         {
-            return _context.Devices.Any(e => e.DeviceId == id);
+            return _context.Devices.Any(e => e.DeviceID == id);
         }
     }
 }

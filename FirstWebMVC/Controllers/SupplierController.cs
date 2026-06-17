@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Data;
+using FirstWebMVC.Models;
 
 namespace FirstWebMVC.Controllers
 {
@@ -33,7 +34,7 @@ namespace FirstWebMVC.Controllers
             }
 
             var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
+                .FirstOrDefaultAsync(m => m.SupplierID == id);
             if (supplier == null)
             {
                 return NotFound();
@@ -53,7 +54,7 @@ namespace FirstWebMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupplierId,SupplierName")] Supplier supplier)
+        public async Task<IActionResult> Create([Bind("SupplierID,SupplierName,Address,Phone")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {
@@ -85,9 +86,9 @@ namespace FirstWebMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SupplierId,SupplierName")] Supplier supplier)
+        public async Task<IActionResult> Edit(int id, [Bind("SupplierID,SupplierName,Address,Phone")] Supplier supplier)
         {
-            if (id != supplier.SupplierId)
+            if (id != supplier.SupplierID)
             {
                 return NotFound();
             }
@@ -101,7 +102,7 @@ namespace FirstWebMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SupplierExists(supplier.SupplierId))
+                    if (!SupplierExists(supplier.SupplierID))
                     {
                         return NotFound();
                     }
@@ -124,7 +125,7 @@ namespace FirstWebMVC.Controllers
             }
 
             var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
+                .FirstOrDefaultAsync(m => m.SupplierID == id);
             if (supplier == null)
             {
                 return NotFound();
@@ -150,7 +151,7 @@ namespace FirstWebMVC.Controllers
 
         private bool SupplierExists(int id)
         {
-            return _context.Suppliers.Any(e => e.SupplierId == id);
+            return _context.Suppliers.Any(e => e.SupplierID == id);
         }
     }
 }
